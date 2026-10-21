@@ -12,21 +12,18 @@ SCREENSHOT_DIR = ROOT / "reports" / "screenshots"
 @pytest.fixture
 def driver():
     options = Options()
-    # Codespaces/container Linux typically has no graphical display.
-    # Use headless there; keep a visible browser on ordinary desktop systems.
-    is_codespace = bool(os.getenv("CODESPACES")) or bool(os.getenv("CODESPACE_NAME"))
-    if os.getenv("HEADLESS", "0") == "1" or (os.name != "nt" and (is_codespace or not os.getenv("DISPLAY"))):
-        options.add_argument("--headless=new")
-    if os.name != "nt":
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--window-size=1440,900")
+
+    # Mở Chrome với giao diện trên Windows
+    options.add_argument("--start-maximized")
     options.add_argument("--disable-notifications")
+
     browser = webdriver.Chrome(options=options)
     browser.implicitly_wait(0)
+
     try:
         yield browser
     finally:
+        input("Đã hoàn thành test. Nhấn Enter để đóng Chrome...")
         browser.quit()
 
 
