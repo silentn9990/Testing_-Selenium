@@ -18,8 +18,12 @@ def login(driver, username=USER, password=PASSWORD):
 
 def test_tc01_login_success(driver, screenshot):
     login(driver)
-    WebDriverWait(driver, 15).until(EC.url_contains("inventory.html"))
-    assert driver.find_element(By.CLASS_NAME, "title").text == "Products"
+    wait = WebDriverWait(driver, 20, ignored_exceptions=(StaleElementReferenceException,))
+    wait.until(EC.url_contains("inventory.html"))
+    # Navigation can finish before React has rendered the Products heading.
+    heading = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "title")))
+    wait.until(lambda d: d.find_element(By.CLASS_NAME, "title").text.strip() == "Products")
+    assert heading.is_displayed()
     screenshot("PASS")
 
 
