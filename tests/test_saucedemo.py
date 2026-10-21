@@ -1,3 +1,4 @@
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
@@ -58,9 +59,21 @@ def test_tc05_remove_product_from_cart(driver, screenshot):
     wait = WebDriverWait(driver, 15)
     wait.until(EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack"))).click()
     driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
-    wait.until(EC.element_to_be_clickable((By.ID, "remove-sauce-labs-backpack"))).click()
-    assert len(driver.find_elements(By.CLASS_NAME, "cart_item")) == 0
-    assert len(driver.find_elements(By.CLASS_NAME, "shopping_cart_badge")) == 0
+    # Wait for cart navigation and retry if React replaces DOM elements.
+    WebDriverWait(driver, 15).until(EC.url_contains("cart.html"))
+    remove_button = (By.ID, "remove-sauce-labs-backpack")
+    retry_wait = WebDriverWait(driver, 15, ignored_exceptions=(StaleElementReferenceException,))
+
+    def remove_when_ready(d):
+        button = EC.element_to_be_clickable(remove_button)(d)
+        if not button:
+            return False
+        button.click()
+        return True
+
+    retry_wait.until(remove_when_ready)
+    retry_wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "cart_item")))
+    retry_wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "shopping_cart_badge")))
     screenshot("PASS")
 
 
