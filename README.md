@@ -64,19 +64,19 @@ Các bài test độc lập, có WebDriverWait, và dùng assertion để tự �
 
 ## 5. Kết quả chạy kiểm thử
 
-**Trạng thái hiện tại: Chưa chạy thực tế trên máy người nộp.** Sau khi chạy, hãy điền PASS/FAIL tương ứng, số test đã chạy và thời gian thực tế. Không nên khai báo PASS khi chưa có kết quả.
+**Kết quả thực tế trên Windows 11, Python 3.13.2, Chrome, pytest 9.1.1:** 6 PASSED, 0 FAILED, 0 ERROR trong **51.04 giây**. Dữ liệu dựa trên log Terminal do người thực hiện cung cấp sau khi chạy `python -m pytest -v`.
 
 | ID | Kết quả thực tế | Ảnh bằng chứng sau khi chạy |
 |---|---|---|
-| TC01 | Chưa chạy | `reports/screenshots/test_tc01_login_success_PASS.png` |
-| TC02 | Chưa chạy | `reports/screenshots/test_tc02_login_wrong_password_PASS.png` |
-| TC03 | Chưa chạy | `reports/screenshots/test_tc03_sort_prices_low_to_high_PASS.png` |
-| TC04 | Chưa chạy | `reports/screenshots/test_tc04_add_product_to_cart_PASS.png` |
-| TC05 | Chưa chạy | `reports/screenshots/test_tc05_remove_product_from_cart_PASS.png` |
-| TC06 | Chưa chạy | `reports/screenshots/test_tc06_logout_PASS.png` |
+| TC01 | PASSED | `reports/screenshots/test_tc01_login_success_PASS.png` |
+| TC02 | PASSED | `reports/screenshots/test_tc02_login_wrong_password_PASS.png` |
+| TC03 | PASSED | `reports/screenshots/test_tc03_sort_prices_low_to_high_PASS.png` |
+| TC04 | PASSED | `reports/screenshots/test_tc04_add_product_to_cart_PASS.png` |
+| TC05 | PASSED | `reports/screenshots/test_tc05_remove_product_from_cart_PASS.png` |
+| TC06 | PASSED | `reports/screenshots/test_tc06_logout_PASS.png` |
 
 **Báo cáo HTML:** `reports/report.html` được pytest-html tạo tự động.
-**Ảnh tự động:** `reports/screenshots/` được tạo khi chạy. Các ảnh này chưa có trên GitHub; sau khi chạy, tải ảnh thật lên repo để minh họa kết quả. File `.gitignore` loại trừ các kết quả chạy cục bộ, nên có thể dùng GitHub Web → Add file → Upload files để tải ảnh hoặc điều chỉnh .gitignore rồi commit.
+**Ảnh tự động:** `reports/screenshots/` được tạo khi chạy. Các ảnh đã được tạo khi chạy trên máy người thực hiện; cần tải ảnh PNG thực tế lên repo để minh họa kết quả. File `.gitignore` loại trừ các kết quả chạy cục bộ, nên có thể dùng GitHub Web → Add file → Upload files để tải ảnh hoặc điều chỉnh .gitignore rồi commit.
 
 ### Những ảnh nên chụp để nộp
 1. Terminal kết quả tổng hợp pytest.
@@ -92,7 +92,7 @@ Sau khi có ảnh trong GitHub, thay đường dẫn ảnh phù hợp vào READM
 
 ## 6. Nhận xét và kết luận
 
-Đã xây dựng 06 kịch bản tự động bao gồm trường hợp hợp lệ, không hợp lệ, sắp xếp và thao tác giỏ hàng. Mỗi bài test mở trình duyệt riêng, giúp tránh phụ thuộc trạng thái. Việc kết luận chất lượng thực nghiệm cần dựa vào lần chạy thật và các ảnh bằng chứng kèm theo.
+Đã xây dựng 06 kịch bản tự động bao gồm trường hợp hợp lệ, không hợp lệ, sắp xếp và thao tác giỏ hàng. Mỗi bài test mở trình duyệt riêng, giúp tránh phụ thuộc trạng thái. Lần chạy thực tế đã hoàn thành 6/6 test case với kết quả PASSED. Kết quả chỉ phản ánh sáu kịch bản được xây dựng, không đồng nghĩa website không còn lỗi ở các chức năng khác.
 
 ## 7. Tài liệu
 - [Selenium WebDriver](https://www.selenium.dev/documentation/webdriver/)
